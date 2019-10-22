@@ -1,0 +1,191 @@
+
+###  列表查询
+GET gag_i_supervise_pharmacy_out/_search
+{
+
+  "_source": [ "product_name","product_ent_name" ,"batch_number"] ,
+  "from":2, "size": 100,
+    "query": {
+        "bool" :{
+          "filter":[
+            {
+             "wildcard":{
+               "product_name.raw":"开颜*"
+             }
+          },{
+             "wildcard":{
+               "product_ent_name.raw":"浙江*"
+             }
+          },{
+             "wildcard":{
+               "batch_number":"*"
+             }
+          },{
+             "wildcard":{
+               "drug_specifications":"*"
+             }
+          }],
+          "must_not":{
+            "terms":{ "batch_number":["无","******","-"]}
+          }
+        }
+    }
+}
+
+###
+
+// 过滤 分组
+
+POST gag_i_supervise_pharmacy_out/_search?size=0
+
+{
+  "aggs":{
+    "ent_sale_num":{
+       "filter" : {
+         "bool":{
+           "filter":[ { "wildcard":{ "product_name.raw":"北*"}}]
+         }
+       },
+
+       "aggs":{
+          "ent_g":{
+            "terms":{ "field" :"product_ent_name.raw"}
+          }
+       }
+
+    }
+  }
+}
+
+
+###
+// 嵌套分组
+
+POST gag_i_supervise_pharmacy_out/_search?size=0
+
+{
+  "aggs":{
+    "ent_sale_num":{
+       "terms":{
+         "field": "product_ent_name.raw"
+       },
+       "aggs":{
+         "ss":{
+           "sum":{"field":"sale_product_number"}
+         }
+       }
+    }
+  }
+}
+
+
+###
+//先根据条件过滤， 然后分组
+//
+POST gag_i_supervise_pharmacy_out/_search?size=0
+
+{
+  "query": {
+        "bool" :{
+          "filter":[
+            {
+             "wildcard":{
+               "product_name.raw":"北京*"
+             }
+          },{
+             "wildcard":{
+               "product_ent_name.raw":"*"
+             }
+          },{
+             "wildcard":{
+               "batch_number":"*"
+             }
+          },{
+             "wildcard":{
+               "drug_specifications":"*"
+             }
+          }],
+          "must_not":{
+            "terms":{ "batch_number":["无","******","-"]}
+          }
+        }
+    },
+
+    "aggs":{
+      "ent":{
+        "terms" :{
+          "field": "product_ent_name.raw" ,
+          "order":{"salesum":"desc"}
+        },
+
+        "aggs":{
+          "salesum":{
+            "sum":{
+              "field": "sale_product_number"
+            }
+          }
+
+        }
+
+      }
+
+    }
+}
+
+
+###
+// cardinality 聚合 ： 根据条件统计企业数量
+POST gag_i_supervise_pharmacy_out/_search?size=0
+
+{
+  "query":{
+    "bool" :{
+      "filter" : [
+         {
+           "wildcard":{
+             "product_name.raw":"北京*"
+           }
+         },
+         {
+           "wildcard":{
+             "product_ent_name.raw":"*"
+           }
+         },
+         {
+           "wildcard":{
+             "batch_number":"*"
+           }
+         }
+        ]
+    }
+  },
+
+  "aggs":{
+    "ent_cardinality":{
+      "cardinality":{
+        "field":"ent_name"
+      }
+    }
+  }
+}
+
+
+### sum 聚合
+//  对数据过滤后，进行总量统计
+
+POST gag_i_supervise_pharmacy_out/_search?size=0
+
+{
+  "query":{
+    "bool":{
+      "filter": [
+        {"wildcard":{"product_name.raw":"*"}},
+        {"wildcard":{"product_ent_name.raw":"*"}},
+        {"wildcard":{"batch_number":"*"}}
+      ]
+    }
+  },
+  "aggs":{
+    "total_sale_":{"sum":{"field":"sale_product_number"}}
+  }
+}

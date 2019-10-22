@@ -1,0 +1,102 @@
+
+
+// 创建索引
+PUT http://127.0.0.1:9200/test_demo
+
+{
+    "settings" : {
+        "index" : {
+            "number_of_shards" : 3,
+            "number_of_replicas" : 2
+        }
+    }
+}
+
+###
+#查看集群分片信息
+GET http://127.0.0.1:9200/_cat/shards
+
+### 查看指定索引指定类型的指定条件的数量
+
+
+###
+
+http://127.0.0.1:8080/test
+
+###
+
+
+### 删除索引
+DELETE localhost:9200/gag_i_supervise_pharmacy_out
+
+
+### 创建索引
+PUT localhost:9200/gag_i_supervise_pharmacy_out?pretty
+Content-Type: application/json
+
+{
+   "mappings": {
+     "pharmacy": {
+       "_all":       { "enabled": false  },
+       "properties": {
+         "ent_name":    { "type": "keyword"    },
+         "id":     { "type": "keyword"  },
+ 		 "product_name":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "product_no":    { "type": "keyword"    },
+ 		 "issuance_date":    { "type": "keyword"    },
+ 		 "document_no":    { "type": "keyword"    },
+ 		 "approval_number":    { "type": "keyword"   },
+ 		 "drug_specifications":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "dosage_form":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "drug_number":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "batch_number":    { "type": "keyword"   },
+ 		 "validity_time":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "receiving_unit":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "receiving_code":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "unit_name":    { "type": "keyword"   },
+ 		 "number":    { "type": "keyword"   },
+ 		 "sale_product_number":    { "type": "double"   },
+ 		 "unit_price":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "total_sum":    { "type": "keyword"  },
+ 		 "product_ent_name":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve1":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve2":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve3":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve4":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve5":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve6":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve7":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve8":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "reserve9":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "organ_id":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		"organ_name":    { "type": "keyword"    },
+ 		"ent_type":    { "type": "keyword"    },
+ 		"provider":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		"customer":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		"gen_time":    { "type": "keyword"    },
+ 		"product_date":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		"area_id":    { "type": "keyword"  },
+ 		"area_name":    { "type": "keyword" },
+ 		"province_code":    { "type": "keyword"   },
+ 		"province_name":    { "type": "keyword"    },
+ 		"city_code":    { "type": "keyword"    },
+ 		"city_name":    { "type": "keyword"    },
+ 		"deal_status":    { "type": "keyword"    },
+ 		"warn_deal_status":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  }
+       }
+     }
+   }
+ }
+
+###
+#批量插入
+GET localhost:8080/bulkSave
+
+###
+
+
+
+###
+
+
+
