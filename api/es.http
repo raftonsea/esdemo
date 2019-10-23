@@ -189,3 +189,18 @@ POST gag_i_supervise_pharmacy_out/_search?size=0
     "total_sale_":{"sum":{"field":"sale_product_number"}}
   }
 }
+
+
+# 普通查询
+###
+
+POST 127.0.0.1:8080/queryDSL
+Content-Type: application/x-www-form-urlencoded
+
+json={
+         "productName":"北京*",
+         "start":"0",
+         "size":"10"
+     }
+
+###

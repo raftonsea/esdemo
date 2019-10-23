@@ -35,6 +35,10 @@ PUT localhost:9200/gag_i_supervise_pharmacy_out?pretty
 Content-Type: application/json
 
 {
+   "settings" : {
+         "number_of_shards" : 2,
+         "number_of_replicas" : 2
+     },
    "mappings": {
      "pharmacy": {
        "_all":       { "enabled": false  },
@@ -44,6 +48,7 @@ Content-Type: application/json
  		 "product_name":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
  		 "product_no":    { "type": "keyword"    },
  		 "issuance_date":    { "type": "keyword"    },
+ 		 "issuance_date_collate":   {  "type":   "date",  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"  },
  		 "document_no":    { "type": "keyword"    },
  		 "approval_number":    { "type": "keyword"   },
  		 "drug_specifications":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
@@ -51,6 +56,7 @@ Content-Type: application/json
  		 "drug_number":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
  		 "batch_number":    { "type": "keyword"   },
  		 "validity_time":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
+ 		 "validity_time_collate":  {  "type":   "date",  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"  },
  		 "receiving_unit":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
  		 "receiving_code":    { "type": "text" , "fields": {  "raw": {  "type":  "keyword" } }  },
  		 "unit_name":    { "type": "keyword"   },
