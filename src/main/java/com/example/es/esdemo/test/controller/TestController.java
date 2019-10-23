@@ -31,4 +31,30 @@ public class TestController {
         return "";
     }
 
+
+    @RequestMapping("/subSumAggregate")
+    public String subSumAggregate(HttpServletRequest request) {
+        String json = request.getParameter("json");
+        Map param = JSON.parseObject(json, Map.class);
+        testService.subSumAggregate(param);
+        return "";
+    }
+
+
+    @RequestMapping("/cardinalityAggregate")
+    public String cardinalityAggregate(HttpServletRequest request) {
+        String json = request.getParameter("json");
+        Map param = JSON.parseObject(json, Map.class);
+        testService.cardinalityAggregate(param);
+        return "";
+    }
+
+    @RequestMapping("/sumAgg")
+    public String sumAgg(HttpServletRequest request) {
+        String json = request.getParameter("json");
+        Map param = JSON.parseObject(json, Map.class);
+        testService.sumAgg(param);
+        return "";
+    }
+
 }

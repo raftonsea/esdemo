@@ -204,3 +204,41 @@ json={
      }
 
 ###
+
+
+POST 127.0.0.1:8080/subSumAggregate
+Content-Type: application/x-www-form-urlencoded
+
+json={
+         "productName":"v*",
+         "issuanceDate":"2019-10-10",
+         "start":"0",
+         "size":"10"
+     }
+
+######
+
+
+POST 127.0.0.1:8080/cardinalityAggregate
+Content-Type: application/x-www-form-urlencoded
+
+json={
+         "productName":"222",
+         "start":"0",
+         "size":"10"
+     }
+
+####
+
+
+
+POST 127.0.0.1:8080/sumAgg
+Content-Type: application/x-www-form-urlencoded
+
+json={
+         "productName":"*",
+         "start":"0",
+         "size":"10"
+     }
+
+###
